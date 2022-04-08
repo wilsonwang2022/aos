@@ -1,4 +1,3 @@
-
 import sys
 import datetime
 from time import sleep
@@ -36,14 +35,14 @@ def create_new_user():
         driver.find_element(By.ID,'menuUser').click()
         sleep(2)
         driver.find_element(By.LINK_TEXT, 'CREATE NEW ACCOUNT').click()
-        sleep(0.25)
+        sleep(1)
         if driver.current_url == locators.aos_registerUrl:
            driver.find_element(By.NAME, 'usernameRegisterPage').send_keys(locators.new_username)
            driver.find_element(By.NAME, 'emailRegisterPage').send_keys(locators.email)
            driver.find_element(By.NAME, 'passwordRegisterPage').send_keys(locators.new_password)
            driver.find_element(By.NAME, 'confirm_passwordRegisterPage').send_keys(locators.new_password)
            driver.find_element(By.NAME, 'first_nameRegisterPage').send_keys(locators.first_name)
-           sleep(0.25)
+           sleep(1)
            driver.find_element(By.NAME, 'last_nameRegisterPage').send_keys(locators.last_name)
            driver.find_element(By.NAME, 'phone_numberRegisterPage').send_keys(locators.phone)
            Select(driver.find_element(By.NAME, 'countryListboxRegisterPage')).select_by_visible_text('Canada')
@@ -53,27 +52,28 @@ def create_new_user():
            driver.find_element(By.NAME, 'postal_codeRegisterPage').send_keys(locators.postal_code)
            driver.find_element(By.NAME, 'i_agree').click()
            driver.find_element(By.ID, 'register_btnundefined').click()
-           sleep(0.25)
-           print('you have created new user: ' + (locators.new_username))
-           print('your password is: ' + (locators.new_password))
+           sleep(1)
+           if driver.find_element(By.XPATH, f'//*[contains(., "{locators.new_username}")]').is_displayed():
+              print('you have created new user: ' + (locators.new_username))
+              print('your password is: ' + (locators.new_password))
 
 def check_user_created():
     # Check that we are on the User's Main Page
     if driver.current_url == locators.aos_url:
         assert driver.find_element(By.ID, 'menuUserLink').is_displayed()
-        sleep(3)
+        sleep(2)
         driver.find_element(By.ID, 'menuUserLink').click()
         print(f'---------------------------------------------------------------------------')
         print(f'this is: {driver.title}')
-        sleep(2)
+        sleep(1)
         driver.find_element(By.XPATH, '//*[@id = "loginMiniTitle"]/label[1]').click()
         print('Verified the new user: ' + (locators.new_username))
         print('Verified the password is: ' + (locators.new_password))
-        sleep(2)
+        sleep(1)
 
 def log_out():
     driver.find_element(By.ID, 'menuUserLink').click()
-    sleep(1)
+    sleep(2)
     driver.find_element(By.XPATH, '//*[@id = "loginMiniTitle"]/label[3]').click()
     #driver.find_element(By.XPATH, '//*[contains(., "Sign out")]').click()
     sleep(1)
@@ -101,7 +101,7 @@ def tearDown():
 def log_in():
     if driver.current_url == locators.aos_loginurl:
         driver.find_element(By.ID, 'menuUser').click()
-        sleep(1)
+        sleep(2)
         if driver.current_url == locators.aos_url:
            driver.find_element(By.XPATH, "//input[@name= 'username']").send_keys(locators.new_username)
            sleep(1)
@@ -115,9 +115,9 @@ def log_in():
 def delete_a_user():
         if driver.current_url == locators.aos_loginurl:
             driver.find_element(By.XPATH, '//*[@id="myAccountContainer"]/div[6]/button').click()
-            sleep(3)
+            sleep(2)
             driver.find_element(By.XPATH, '//*[@id="deleteAccountPopup"]/div[3]/div[1]').click()
-            sleep(3)
+            sleep(1)
             print(f'---------------------------------------------------------------------------')
             print(f'--- Account with username {locators.new_username} has been deleted successfully. Test passed ---')
             print(f'Account deleted successfully at: {datetime.datetime.now()}')
@@ -141,9 +141,8 @@ def verified_delete_user():
     else:
         print(f'This is not currect webpage')
 
-
 # setUp()
-#
+# #check_homepage()
 # create_new_user()
 #
 # check_user_created()
