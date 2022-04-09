@@ -5,6 +5,11 @@ aos_url = 'https://advantageonlineshopping.com/#/'
 aos_loginurl = 'https://advantageonlineshopping.com/#/myAccount'
 aos_title = f'\xa0''Advantage Shopping'
 aos_registerUrl = 'https://advantageonlineshopping.com/#/register'
+aos_speakers = 'https://advantageonlineshopping.com/#/category/Speakers/4'
+aos_tablets = 'https://advantageonlineshopping.com/#/category/Tablets/3'
+aos_headphones = 'https://advantageonlineshopping.com/#/category/Headphones/2'
+aos_laptops = 'https://advantageonlineshopping.com/#/category/Laptops/1'
+aos_mice = 'https://advantageonlineshopping.com/#/category/Mice/5'
 #moodle_login_url = 'http://52.39.5.126/login/index.php'
 #moodle_users_main_page = 'http://52.39.5.126/admin/user.php'
 #moodle_username = 'xiaodongwang'
@@ -18,7 +23,7 @@ full_name = f'{first_name} {last_name}'
 email = fake.email()
 moodle_net_profile = f'https://moodle.net/{new_username}'
 city = fake.city()
-# description = fake.sentence(nb_words=100)
+description1 = fake.sentence(nb_words=30)
 description = f'User added by {new_username} via Python Selenium Automated script on {datetime.datetime.now()}'
 pic_desc = fake.user_name()
 phonetic_name = fake.user_name()
@@ -36,3 +41,5 @@ postal_code = fake.postalcode()
 province_code = fake.province_abbr()
 country_code = fake.current_country_code()
 street_city_region = f'{country_code}/{province_code}'
+list_of_category = []
+list_of_product = []

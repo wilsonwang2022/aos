@@ -8,6 +8,7 @@ from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.service import Service
 
 
+
 s=Service(executable_path='../chromedriver.exe')
 driver=webdriver.Chrome(service=s)
 
@@ -141,8 +142,169 @@ def verified_delete_user():
     else:
         print(f'This is not currect webpage')
 
+#Validate Homepage Text, Links and Top Navigation Menu
+def validate_homepage_text():
+    if driver.current_url == locators.aos_url:
+        sleep(2)
+        driver.find_element(By.ID, "speakersTxt").click()
+        if driver.current_url == locators.aos_speakers:
+            print(f'=================================================================')
+            print(f'Validate SPEAKERS is displayed')
+            sleep(2)
+            driver.find_element(By.XPATH, '//a[contains(., "HOME")]').click()
+            sleep(1)
+            driver.find_element(By.ID, "tabletsTxt").click()
+            if driver.current_url == locators.aos_tablets:
+                print(f'------------------------------------------------------------------------')
+                print(f'Validate TABLETS is displayed')
+                sleep(2)
+                driver.find_element(By.XPATH, '//a[contains(., "HOME")]').click()
+                sleep(1)
+                driver.find_element(By.ID, "laptopsTxt").click()
+                if driver.current_url == locators.aos_laptops:
+                    print(f'------------------------------------------------------------------------')
+                    print(f'Validate LAPTOPS is displayed')
+                    sleep(2)
+                    driver.find_element(By.XPATH, '//a[contains(., "HOME")]').click()
+                    sleep(1)
+                    driver.find_element(By.ID, "headphonesTxt").click()
+                    if driver.current_url == locators.aos_headphones:
+                        print(f'------------------------------------------------------------------------')
+                        print(f'Validate HEADPHONES is displayed')
+                        sleep(2)
+                        driver.find_element(By.XPATH, '//a[contains(., "HOME")]').click()
+                        sleep(1)
+                        driver.find_element(By.ID, "miceTxt").click()
+                        if driver.current_url == locators.aos_mice:
+                            print(f'------------------------------------------------------------------------')
+                            print(f'Validate MICE is displayed')
+                            sleep(2)
+                            driver.find_element(By.XPATH, '//a[contains(., "HOME")]').click()
+                            sleep(1)
+    else:
+        print('It is correct homepage, try again')
+
+def validate_links():
+    if driver.current_url == locators.aos_url:
+        sleep(2)
+        driver.find_element(By.LINK_TEXT, 'SPECIAL OFFER').click()
+        if driver.find_element(By.ID, 'special_offer_items').is_displayed():
+           print(f'---------------------------------------------------------')
+           print('SPECIAL OFFER Link is displayed')
+           driver.find_element(By.LINK_TEXT, 'POPULAR ITEMS').click()
+           if driver.find_element(By.ID, 'popular_items').is_displayed():
+               print(f'---------------------------------------------------------')
+               print('POPULAR ITEMS Link is displayed')
+               driver.find_element(By.LINK_TEXT, 'CONTACT US').click()
+               if driver.find_element(By.ID, 'supportCover').is_displayed():
+                   print(f'---------------------------------------------------------')
+                   print('CONTACT US Link is displayed')
+    else:
+        print('the links are not displayed, try again')
+
+def validate_main_logo():
+    if driver.current_url == locators.aos_url:
+        sleep(2)
+        driver.find_element(By.XPATH, '//a[@href="#/"]').click()
+        if driver.find_element(By.LINK_TEXT, 'OUR PRODUCTS').is_displayed():
+            print(f'==========================================================')
+            print('Main logo is displayed')
+    else:
+        print('It is not correct main logo link, try again')
+
+def validate_contact_us_form():
+    if driver.current_url == locators.aos_url:
+        sleep(3)
+        driver.find_element(By.LINK_TEXT, 'CONTACT US').click()
+        sleep(1)
+        if driver.find_element(By.ID, 'supportCover').is_displayed():
+            Select(driver.find_element(By.NAME, 'categoryListboxContactUs')).select_by_visible_text('Speakers')
+            sleep(1)
+            Select(driver.find_element(By.NAME, 'productListboxContactUs')).select_by_visible_text('Bose Soundlink Bluetooth Speaker III')
+            sleep(1)
+            driver.find_element(By.NAME, 'emailContactUs').send_keys(locators.email)
+            sleep(1)
+            driver.find_element(By.NAME, 'subjectTextareaContactUs').send_keys(locators.description1)
+            sleep(1)
+            driver.find_element(By.ID,'send_btnundefined').click()
+            sleep(1)
+            print(f'========================================================')
+            print('It is already diaplayed Contact Us links')
+            if driver.find_element(By.XPATH, '//*[contains(.,"Thank you for contacting Advantage support.")]').is_displayed():
+               driver.find_element(By.XPATH, '//a[contains(., "CONTINUE SHOPPING ")]').click()
+               print('Thank You and Continue to Shopping!')
+    else:
+        print('It is not correct to contact us form, try again')
+
+def validate_facebook():
+    if driver.current_url == locators.aos_url:
+        sleep(3)
+        driver.find_element(By.LINK_TEXT, 'CONTACT US').click()
+        sleep(1)
+        if driver.find_element(By.ID, 'supportCover').is_displayed():
+           driver.find_element(By.NAME, 'follow_facebook').click()
+           sleep(1)
+           print('swtich to facebook homepage')
+#          print(driver.title)
+           p = driver.window_handles[0]
+           c = driver.window_handles[1]
+           driver.switch_to.window(c)
+           if driver.current_url == 'https://www.facebook.com/MicroFocus/':
+              sleep(2)
+              print(f'===============================================')
+              print('It is Facebook homepage')
+              driver.close()
+              sleep(1)
+              driver.switch_to.window(p)
+def validate_twitter():
+    if driver.current_url == locators.aos_url:
+        sleep(3)
+        driver.find_element(By.LINK_TEXT, 'CONTACT US').click()
+        sleep(1)
+        if driver.find_element(By.ID, 'supportCover').is_displayed():
+           driver.find_element(By.NAME, 'follow_twitter').click()
+           sleep(1)
+           p = driver.window_handles[0]
+           c = driver.window_handles[1]
+           driver.switch_to.window(c)
+           if driver.current_url == 'https://twitter.com/MicroFocus':
+              sleep(2)
+              print(f'------------------------------------------------')
+              print('It is twitter homepage')
+              driver.close()
+              sleep(1)
+              driver.switch_to.window(p)
+def validate_linkdin():
+    if driver.current_url == locators.aos_url:
+        sleep(3)
+        driver.find_element(By.LINK_TEXT, 'CONTACT US').click()
+        sleep(1)
+        if driver.find_element(By.ID, 'supportCover').is_displayed():
+           driver.find_element(By.NAME, 'follow_linkedin').click()
+           sleep(1)
+           p = driver.window_handles[0]
+           c = driver.window_handles[1]
+           driver.switch_to.window(c)
+           if driver.title == 'LinkedIn':
+              sleep(2)
+              print(f'------------------------------------------------')
+              print('It is LinkedIn homepage')
+              driver.close()
+              driver.switch_to.window(p)
+              print('We already checked social media links, well done!')
+    else:
+        print('It is not correct to social media links, try again')
+
 # setUp()
-# #check_homepage()
+#
+# validate_homepage_text()
+# validate_links()
+# validate_main_logo()
+# validate_contact_us_form()
+# validate_facebook()
+# validate_twitter()
+# validate_linkdin()
+#
 # create_new_user()
 #
 # check_user_created()
