@@ -41,5 +41,5 @@ postal_code = fake.postalcode()
 province_code = fake.province_abbr()
 country_code = fake.current_country_code()
 street_city_region = f'{country_code}/{province_code}'
-list_of_category = []
-list_of_product = []
+# list_of_category = []
+# list_of_product = []
