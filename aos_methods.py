@@ -3,15 +3,13 @@ import datetime
 from time import sleep
 import aos_locators as locators
 from selenium import webdriver
+from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
 from selenium.webdriver.chrome.service import Service
 
-
-
 s=Service(executable_path='../chromedriver.exe')
 driver=webdriver.Chrome(service=s)
-
 
 def setUp():
     driver.maximize_window()
@@ -186,19 +184,19 @@ def validate_homepage_text():
 
 def validate_links():
     if driver.current_url == locators.aos_url:
-        sleep(2)
-        driver.find_element(By.LINK_TEXT, 'SPECIAL OFFER').click()
-        if driver.find_element(By.ID, 'special_offer_items').is_displayed():
-           print(f'---------------------------------------------------------')
-           print('SPECIAL OFFER Link is displayed')
-           driver.find_element(By.LINK_TEXT, 'POPULAR ITEMS').click()
-           if driver.find_element(By.ID, 'popular_items').is_displayed():
-               print(f'---------------------------------------------------------')
-               print('POPULAR ITEMS Link is displayed')
-               driver.find_element(By.LINK_TEXT, 'CONTACT US').click()
-               if driver.find_element(By.ID, 'supportCover').is_displayed():
-                   print(f'---------------------------------------------------------')
-                   print('CONTACT US Link is displayed')
+       sleep(2)
+       driver.find_element(By.LINK_TEXT, 'SPECIAL OFFER').click()
+       if driver.find_element(By.ID, 'special_offer_items').is_displayed():
+          print(f'---------------------------------------------------------')
+          print('SPECIAL OFFER Link is displayed')
+          driver.find_element(By.LINK_TEXT, 'POPULAR ITEMS').click()
+          if driver.find_element(By.ID, 'popular_items').is_displayed():
+             print(f'---------------------------------------------------------')
+             print('POPULAR ITEMS Link is displayed')
+             driver.find_element(By.LINK_TEXT, 'CONTACT US').click()
+             if driver.find_element(By.ID, 'supportCover').is_displayed():
+                print(f'---------------------------------------------------------')
+                print('CONTACT US Link is displayed')
     else:
         print('the links are not displayed, try again')
 
@@ -214,7 +212,7 @@ def validate_main_logo():
 
 def validate_contact_us_form():
     if driver.current_url == locators.aos_url:
-        sleep(3)
+        sleep(2)
         driver.find_element(By.LINK_TEXT, 'CONTACT US').click()
         sleep(1)
         if driver.find_element(By.ID, 'supportCover').is_displayed():
@@ -238,14 +236,13 @@ def validate_contact_us_form():
 
 def validate_facebook():
     if driver.current_url == locators.aos_url:
-        sleep(3)
+        sleep(2)
         driver.find_element(By.LINK_TEXT, 'CONTACT US').click()
         sleep(1)
         if driver.find_element(By.ID, 'supportCover').is_displayed():
            driver.find_element(By.NAME, 'follow_facebook').click()
            sleep(1)
            print('swtich to facebook homepage')
-#          print(driver.title)
            p = driver.window_handles[0]
            c = driver.window_handles[1]
            driver.switch_to.window(c)
@@ -256,9 +253,10 @@ def validate_facebook():
               driver.close()
               sleep(1)
               driver.switch_to.window(p)
+
 def validate_twitter():
     if driver.current_url == locators.aos_url:
-        sleep(3)
+        sleep(2)
         driver.find_element(By.LINK_TEXT, 'CONTACT US').click()
         sleep(1)
         if driver.find_element(By.ID, 'supportCover').is_displayed():
@@ -274,9 +272,10 @@ def validate_twitter():
               driver.close()
               sleep(1)
               driver.switch_to.window(p)
+
 def validate_linkdin():
     if driver.current_url == locators.aos_url:
-        sleep(3)
+        sleep(2)
         driver.find_element(By.LINK_TEXT, 'CONTACT US').click()
         sleep(1)
         if driver.find_element(By.ID, 'supportCover').is_displayed():
@@ -285,7 +284,7 @@ def validate_linkdin():
            p = driver.window_handles[0]
            c = driver.window_handles[1]
            driver.switch_to.window(c)
-           if driver.title == 'LinkedIn':
+           if "LinkedIn" in driver.title:
               sleep(2)
               print(f'------------------------------------------------')
               print('It is LinkedIn homepage')
@@ -295,8 +294,9 @@ def validate_linkdin():
     else:
         print('It is not correct to social media links, try again')
 
-# setUp()
-#
+
+setUp()
+
 # validate_homepage_text()
 # validate_links()
 # validate_main_logo()
@@ -304,15 +304,15 @@ def validate_linkdin():
 # validate_facebook()
 # validate_twitter()
 # validate_linkdin()
+
+create_new_user()
+
+check_user_created()
 #
-# create_new_user()
-#
-# check_user_created()
-#
-# log_out()
-#
-# log_in()
-#
+log_out()
+log_in()
+# checkout_shopping_cart()
+
 # check_user_created()
 #
 # delete_a_user()
