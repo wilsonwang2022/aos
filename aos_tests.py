@@ -1,10 +1,10 @@
 import unittest
 import aos_methods as methods
 
-class MoodlePositiveTestCases(unittest.TestCase):
 
-    @staticmethod # signal to Unittest framework that this is a function inside the class (vs. @classmethod)
-    def test_aos(): # test_ in the name is mandatory
+class MoodlePositiveTestCases(unittest.TestCase):
+    @staticmethod
+    def test_aos():
         methods.setUp()
         methods.validate_homepage_text()
         methods.validate_links()
@@ -17,8 +17,14 @@ class MoodlePositiveTestCases(unittest.TestCase):
         methods.check_user_created()
         methods.log_out()
         methods.log_in()
+        methods.checkout_shopping_cart()
+        methods.log_out()
+        methods.log_in()
+        methods.validate_orderpage()
+        methods.delete_order()
+        methods.log_out()
+        methods.log_in()
         methods.check_user_created()
         methods.delete_a_user()
         methods.verified_delete_user()
         methods.tearDown()
-
