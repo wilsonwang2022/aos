@@ -10,6 +10,7 @@ from selenium.webdriver.chrome.service import Service
 
 global shippingname1
 global ordernumber
+global my_ordernumber
 
 s = Service(executable_path='../chromedriver.exe')
 driver = webdriver.Chrome(service=s)
@@ -369,6 +370,7 @@ def validate_orderpage():
         sleep(1)
     else:
         print('it is not correct order number')
+
 
 def delete_order():
     driver.find_element(By.XPATH, f"//*[contains(.,'{locators.order_number}')]/../td/span/a[text()='REMOVE']").click()
